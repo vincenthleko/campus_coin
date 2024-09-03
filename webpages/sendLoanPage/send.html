@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send Money</title>
+    <link rel="stylesheet" href="sendLoan.css">
+    <script src="https://unpkg.com/alpinejs" defer></script>
+</head>
+
+<body>
+    <div class="send-container" x-data="{ 
+        goBack() { window.location.href = 'dashboard.html'; } 
+    }">
+        <h2 class="title" style="color: white;">Select Risk Level</h2>
+        <div class="risk-level-container">
+            <div class="risk-level">
+                <h3>Low Risk</h3>
+                <p>70 - Max</p>
+                <p>Low interest rate</p>
+            </div>
+            <div class="risk-level">
+                <h3>Medium Risk</h3>
+                <p>51 - 70</p>
+                <p>Medium interest rate</p>
+            </div>
+            <div class="risk-level">
+                <h3>High Risk</h3>
+                <p>30 - 50</p>
+                <p>High interest rate</p>
+            </div>
+        </div>
+        <button class="back-btn" @click="goBack()">Back</button>
+    </div>
+</body>
+
+</html>

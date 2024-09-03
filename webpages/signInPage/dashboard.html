@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="sign.css">
     <script src="https://unpkg.com/alpinejs" defer></script>
 </head>
+
 <body>
     <div class="dashboard-container">
         <div class="top-bar">
@@ -16,19 +18,27 @@
             <div class="user-id" contenteditable="true">User 325</div>
         </div>
 
-        <div class="button-grid">
-            <button class="dashboard-btn">Send</button>
-            <button class="dashboard-btn">Receive</button>
-            <button class="dashboard-btn">Buy C.Coins</button>
-            <button class="dashboard-btn">Upload Expenses</button>
-            <button class="dashboard-btn">View Balance</button>
+        <div class="button-grid" x-data="{ 
+            navigateToRequestLoan() { window.location.href = '../requestPage/request.html'; }
+        }">
+            <button class="dashboard-btn">Send Loan</button>
+            <!-- <button class="dashboard-btn">Request Loan</button> -->
+            <button class="dashboard-btn" @click="navigateToRequestLoan">Request Loan</button>
+            <!-- <button class="dashboard-btn">Buy C.Coins</button> -->
+            <button class="dashboard-btn">Redeem Points</button>
+            <!-- <button class="dashboard-btn">View Balance</button> -->
             <button class="dashboard-btn">Transaction History</button>
-            <button class="dashboard-btn full-width">Connect Wallet</button>
+            <button class="dashboard-btn full-width">Connect Wallet/View Balance</button>
         </div>
-        <div class="bottom-bar">
-            <p>2024 &middot; Campus Coin &middot; All rights reserved.</p>
-            <button class="logout-btn" @click="window.location.href = '../firstPage/first.html'">Log out</button>
+        <div class="login-container" x-data="{ 
+                logOut() { window.location.href = '../firstPage/first.html'; }
+            }">
+            <div class="bottom-bar">
+                <p>2024 &middot; Campus Coin &middot; All rights reserved.</p>
+                <button class="logout-btn" @click="window.location.href = '../firstPage/first.html'">Log out</button>
+            </div>
         </div>
     </div>
 </body>
+
 </html>
