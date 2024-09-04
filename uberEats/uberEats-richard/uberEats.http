@@ -1,2 +1,0 @@
-GET http://localhost:3006/api/richard/points HTTP/1.1
-Accept: application/json
