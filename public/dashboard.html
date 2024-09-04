@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Coin - Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="alpineCampusCoin.js"></script>
+    <link rel="stylesheet" href="styles.css"> <!-- Add your CSS file here -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+</head>
+<body>
+
+<div x-data="campusCoin">
+    <h1>Welcome to Campus Coin</h1>
+    
+    <div>
+        <label for="username">Enter Username:</label>
+        <input type="text" id="username" x-model="username">
+    </div>
+
+    <div>
+        <button @click="fetchPoints('checkers60')">Get Checkers60 Points</button>
+        <button @click="fetchPoints('takealot')">Get Takealot Points</button>
+        <button @click="fetchPoints('uber')">Get Uber Points</button>
+        <button @click="fetchPoints('uberEats')">Get UberEats Points</button>
+        <button @click="fetchOverallPoints()">Get Overall Points</button>
+    </div>
+
+    <div x-show="points !== null">
+        <p x-show="selectedPlatform !== 'overall'">Points for <span x-text="selectedPlatform"></span>: <span x-text="points"></span></p>
+        <p x-show="selectedPlatform === 'overall'">Overall Points: <span x-text="points"></span></p>
+    </div>
+</div>
+
+</body>
+</html>

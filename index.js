@@ -41,7 +41,21 @@ app.get(`/api/uberEats/username/:username`, (req, res) => {
     res.json ({points: points})
 })
 
+// Simple in-memory "database" for demonstration
+let users = [];
 
+app.post('/api/register', (req, res) => {
+    const { studentNumber, password } = req.body;
+
+    // Check if the student number is already registered
+    if (users.find(user => user.studentNumber === studentNumber)) {
+        return res.json({ success: false, message: "Student number already registered." });
+    }
+
+    // Register the new user
+    users.push({ studentNumber, password });
+    res.json({ success: true, message: "Registration successful!" });
+});
 
 app.listen(PORT, function () {
   console.log(`Example add listening on port ${PORT}!`);
