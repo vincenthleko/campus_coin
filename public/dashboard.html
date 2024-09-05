@@ -16,7 +16,7 @@
             <div class="profile-pic">
                 <img src="profile-placeholder.png" alt="Profile Picture">
             </div>
-            <div class="user-id" contenteditable="true">User 325</div>
+            <div class="user-id" contenteditable="true">User</div>
         </div>
 
         <div class="button-grid" x-data="{ 
@@ -30,11 +30,12 @@
             <button class="dashboard-btn full-width">Connect Wallet/View Balance</button>
         </div>
 
-        <div class="login-container" x-data="{ logOut() { window.location.href = 'index.html'; } }">
+        <div class="log-in-container" x-data="{ logOut() { window.location.href = 'index.html'; } }">
+            <button class="logout-btn" @click="logOut()">Log out</button>
             <div class="bottom-bar">
                 <p>2024 &middot; Campus Coin &middot; All rights reserved.</p>
-                <button class="logout-btn" @click="logOut()">Log out</button>
             </div>
+            
         </div>
     </div>
 </body>
