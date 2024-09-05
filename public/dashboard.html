@@ -1,37 +1,42 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Campus Coin - Dashboard</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Campus Coin Dashboard</title>
     <script defer src="alpineCampusCoin.js"></script>
-    <link rel="stylesheet" href="styles.css"> <!-- Add your CSS file here -->
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/alpinejs" defer></script>
 </head>
+
 <body>
+    <div class="dashboard-container">
+        <div class="top-bar">
+            <div class="profile-pic">
+                <img src="profile-placeholder.png" alt="Profile Picture">
+            </div>
+            <div class="user-id" contenteditable="true">User 325</div>
+        </div>
 
-<div x-data="campusCoin">
-    <h1>Welcome to Campus Coin</h1>
-    
-    <div>
-        <label for="username">Enter Username:</label>
-        <input type="text" id="username" x-model="username">
+        <div class="button-grid" x-data="{ 
+            navigateToRequestLoan() { window.location.href = 'requestPage.html'; },
+            navigateToRedeemPoints() { window.location.href = 'redeemPoints.html'; } <!-- Points calculation page -->
+        }">
+            <button class="dashboard-btn">Send Loan</button>
+            <button class="dashboard-btn" @click="navigateToRequestLoan">Request Loan</button>
+            <button class="dashboard-btn" @click="navigateToRedeemPoints">Redeem Points</button>
+            <button class="dashboard-btn">Transaction History</button>
+            <button class="dashboard-btn full-width">Connect Wallet/View Balance</button>
+        </div>
+
+        <div class="login-container" x-data="{ logOut() { window.location.href = 'index.html'; } }">
+            <div class="bottom-bar">
+                <p>2024 &middot; Campus Coin &middot; All rights reserved.</p>
+                <button class="logout-btn" @click="logOut()">Log out</button>
+            </div>
+        </div>
     </div>
-
-    <div>
-        <button @click="fetchPoints('checkers60')">Get Checkers60 Points</button>
-        <button @click="fetchPoints('takealot')">Get Takealot Points</button>
-        <button @click="fetchPoints('uber')">Get Uber Points</button>
-        <button @click="fetchPoints('uberEats')">Get UberEats Points</button>
-        <button @click="fetchOverallPoints()">Get Overall Points</button>
-    </div>
-
-    <div x-show="points !== null">
-        <p x-show="selectedPlatform !== 'overall'">Points for <span x-text="selectedPlatform"></span>: <span x-text="points"></span></p>
-        <p x-show="selectedPlatform === 'overall'">Overall Points: <span x-text="points"></span></p>
-    </div>
-</div>
-
 </body>
 </html>
+

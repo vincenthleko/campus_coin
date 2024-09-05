@@ -5,29 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Campus Coin - Register</title>
     <script defer src="alpineCampusCoin.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <link rel="stylesheet" href="styles.css"> <!-- Add your CSS file here -->
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 </head>
 <body>
-    <div class="register-container" x-data="campusCoin">
+    <div class="register-container" x-data="{ 
+        register() { window.location.href = 'index.html'; }
+    }">
         <div class="register-box">
             <h1>Register for Campus Coin</h1>
-            <form @submit.prevent="submitForm">
+            <form @submit.prevent="register">
+                <!-- <div class="input-group">
+                    <input type="text" placeholder="Enter your full name" required>
+                </div> -->
                 <div class="input-group">
-                    <input type="text" x-model="studentNumber" placeholder="Enter your student number" required>
+                    <input type="text" placeholder="Enter your student number" required>
                 </div>
                 <div class="input-group">
-                    <input type="password" x-model="password" placeholder="Create a password" required>
+                    <input type="password" placeholder="Enter your password" required>
                 </div>
                 <div class="input-group">
-                    <input type="password" x-model="confirmPassword" placeholder="Confirm your password" required>
+                    <input type="password" placeholder="Confirm your password" required>
                 </div>
                 <div class="button-group">
                     <button type="submit" class="register-btn">Register</button>
                 </div>
-                <p x-text="errorMessage" class="error-message"></p>
             </form>
+            <a href="index.html" class="back-to-login">Back to Login</a>
         </div>
     </div>
 </body>
 </html>
+

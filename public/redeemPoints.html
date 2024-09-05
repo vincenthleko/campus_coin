@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Coin - Redeem Points</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="alpineCampusCoin.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+</head>
+<body>
+
+<div class="points-container" x-data="campusCoin">
+    <h1>Redeem Your Points</h1>
+
+    <div>
+        <label for="username">Enter Username:</label>
+        <input type="text" id="username" x-model="username">
+    </div>
+
+    <div class="platform-buttons">
+        <button @click="fetchPoints('checkers60')">Checkers60 Points</button>
+        <button @click="fetchPoints('takealot')">Takealot Points</button>
+        <button @click="fetchPoints('uber')">Uber Points</button>
+        <button @click="fetchPoints('uberEats')">UberEats Points</button>
+        <button @click="fetchOverallPoints()">Overall Points</button>
+    </div>
+
+    <div class="points-display" x-show="points !== null">
+        <p x-show="selectedPlatform !== 'overall'">Points for <span x-text="selectedPlatform"></span>: <span x-text="points"></span></p>
+        <p x-show="selectedPlatform === 'overall'">Overall Points: <span x-text="points"></span></p>
+    </div>
+
+    <button @click="goBackToDashboard()" class="back-btn">Back to Dashboard</button>
+</div>
+
+</body>
+</html>
+
+

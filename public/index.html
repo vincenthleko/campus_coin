@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Campus Coin</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Campus Coin - Login</title>
     <script defer src="alpineCampusCoin.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 </head>
 <body>
     <div class="login-container" x-data="{ 
-            signIn() { window.location.href = 'dashboard.html'; },
-            goToRegister() { window.location.href = 'registerPage.html'; }
-        }">
+        signIn() { window.location.href = 'dashboard.html'; },
+        goToRegister() { window.location.href = 'registerPage.html'; }
+    }">
         <div class="login-box">
             <h1>CAMPUS COIN</h1>
             <img src="logo.png" alt="Campus Coin Logo" class="logo">
@@ -33,3 +33,4 @@
     </div>
 </body>
 </html>
+
