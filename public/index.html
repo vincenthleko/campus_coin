@@ -19,13 +19,16 @@
         
         signIn() {
             if (this.allowedStudentNumbers.includes(this.studentNumber)) {
-                // If the student number is valid, redirect to the dashboard
+                // Save the student number in local storage
+                localStorage.setItem('loggedInStudent', this.studentNumber);
+        
+                // Redirect to the dashboard
                 window.location.href = 'dashboard.html';
             } else {
-                // If the student number is not valid, show an error message
                 this.errorMessage = 'Invalid student number. Please try again.';
             }
         },
+        
         
         goToRegister() {
             window.location.href = 'registerPage.html';
@@ -38,7 +41,7 @@
             <!-- Login Form -->
             <form @submit.prevent="signIn"> <!-- Inline Alpine.js function for sign-in -->
                 <div class="input-group">
-                    <input type="text" placeholder="Enter your student number" x-model="studentNumber" required>
+                    <input type="text" placeholder="Enter your username" x-model="studentNumber" required>
                 </div>
                 <div class="input-group">
                     <input type="password" placeholder="Enter your password" x-model="password" required>
@@ -57,30 +60,7 @@
 </html>
 
 
-<!-- <body>
-    <div class="login-container" x-data="{ 
-        signIn() { window.location.href = 'dashboard.html'; },
-        goToRegister() { window.location.href = 'registerPage.html'; }
-    }">
-        <div class="login-box">
-            <h1>CAMPUS COIN</h1>
-            <img src="logo.png" alt="Campus Coin Logo" class="logo">
-            <form @submit.prevent="signIn">
-                <div class="input-group">
-                    <input type="text" placeholder="Enter your student number" required>
-                </div>
-                <div class="input-group">
-                    <input type="password" placeholder="Enter your password" required>
-                </div>
-                <div class="button-group">
-                    <button type="submit" class="sign-in-btn">Sign in</button>
-                    <button type="button" class="register-btn" @click="goToRegister">Register</button>
-                </div>
-                <a href="#" class="forgot-password">Forgot Password?</a>
-            </form> 
-        </div>
-    </div>
-</body> -->
+
 
 
 
