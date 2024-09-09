@@ -46,9 +46,9 @@
                 <div class="input-group">
                     <input type="password" placeholder="Enter your password" x-model="password" required>
                 </div>
-                <div class="button-group">
-                    <button type="submit" class="sign-in-btn">Sign In</button>
-                    <button type="button" class="register-btn" @click="goToRegister">Register</button>
+                <div class="buttons-group">
+                    <button type="submit" class="sign-in-btn" style="width: 48%;">Sign In</button>
+                    <button type="button" class="register-btn" @click="goToRegister" style="width: 48%;">Register</button>
                 </div>
                 <!-- Display error message if student number is invalid -->
                 <p x-text="errorMessage" class="error-message" style="color:red;"></p>
