@@ -1,40 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Campus Coin - Redeem Points</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css" />
     <script defer src="alpineCampusCoin.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-</head>
-<body>
+    <script
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+      defer
+    ></script>
+  </head>
+  <body>
+    <div
+      class="dashboard-container"
+      x-data="campusCoin"
+      x-init="username = localStorage.getItem('loggedInStudent') || ''"
+    >
+      <h1 style="color: white">Redeem Your Points</h1>
 
-<div class="dashboard-container" x-data="campusCoin">
-    <h1 style="color: white;">Redeem Your Points</h1>
+      <!-- Automatically use the logged-in student number -->
+      <div class="input-group">
+        <label for="username" style="color: white"
+          >Logged-in username:</label
+        >
+        <input type="text" id="username" x-model="username" readonly />
+        <!-- The student number is read-only -->
+      </div>
 
-    <div class="input-group">
-        <label for="username" style="color: white;">Enter Username:</label>
-        <input type="text" id="username" x-model="username">
-    </div>
-
-    <div class="platform-buttons">
+      <!-- Platform Buttons for fetching points -->
+      <div class="platform-buttons">
         <button @click="fetchPoints('checkers60')">Checkers60 Points</button>
         <button @click="fetchPoints('takealot')">Takealot Points</button>
         <button @click="fetchPoints('uber')">Uber Points</button>
         <button @click="fetchPoints('uberEats')">UberEats Points</button>
         <button @click="fetchOverallPoints()">Overall Points</button>
+      </div>
+
+      <!-- Display Points -->
+      <div class="points-display" x-show="points !== null">
+        <p x-show="selectedPlatform !== 'overall'">
+          Points for <span x-text="selectedPlatform"></span>:
+          <span x-text="points"></span>
+        </p>
+        <p x-show="selectedPlatform === 'overall'">
+          Overall Points: <span x-text="points"></span>
+        </p>
+      </div>
+
+      <!-- Back to Dashboard Button -->
+      <button @click="goBackToDashboard()" class="back-btn">
+        Back to Dashboard
+      </button>
     </div>
-
-    <div class="points-display" x-show="points !== null">
-        <p x-show="selectedPlatform !== 'overall'">Points for <span x-text="selectedPlatform"></span>: <span x-text="points"></span></p>
-        <p x-show="selectedPlatform === 'overall'">Overall Points: <span x-text="points"></span></p>
-    </div>
-
-    <button @click="goBackToDashboard()" class="back-btn">Back to Dashboard</button>
-</div>
-
-</body>
+  </body>
 </html>
-
-

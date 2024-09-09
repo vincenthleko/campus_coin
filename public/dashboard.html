@@ -1,13 +1,11 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Campus Coin Dashboard</title>
-    <script defer src="alpineCampusCoin.js"></script>
+    <title>Campus Coin - Dashboard</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="https://unpkg.com/alpinejs" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 </head>
 
 <body>
@@ -16,12 +14,15 @@
             <div class="profile-pic">
                 <img src="profile-placeholder.png" alt="Profile Picture">
             </div>
-            <div class="user-id" contenteditable="true">User</div>
+            <!-- Display the logged-in student number here -->
+            <div class="user-id" x-data="{
+                studentNumber: localStorage.getItem('loggedInStudent') || 'Unknown User'
+            }" x-text="studentNumber"></div>
         </div>
 
         <div class="button-grid" x-data="{ 
             navigateToRequestLoan() { window.location.href = 'requestPage.html'; },
-            navigateToRedeemPoints() { window.location.href = 'redeemPoints.html'; } <!-- Points calculation page -->
+            navigateToRedeemPoints() { window.location.href = 'redeemPoints.html'; } 
         }">
             <button class="dashboard-btn">Send Loan</button>
             <button class="dashboard-btn" @click="navigateToRequestLoan">Request Loan</button>
@@ -30,14 +31,20 @@
             <button class="dashboard-btn full-width">Connect Wallet/View Balance</button>
         </div>
 
-        <div class="log-in-container" x-data="{ logOut() { window.location.href = 'index.html'; } }">
+        <div class="log-in-container" x-data="{ 
+            logOut() { 
+                // Clear local storage and redirect to login page
+                localStorage.removeItem('loggedInStudent');
+                window.location.href = 'index.html'; 
+            } 
+        }">
             <button class="logout-btn" @click="logOut()">Log out</button>
             <div class="bottom-bar">
                 <p>2024 &middot; Campus Coin &middot; All rights reserved.</p>
             </div>
-            
         </div>
     </div>
 </body>
 </html>
+
 
