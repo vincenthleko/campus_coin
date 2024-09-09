@@ -38,7 +38,7 @@
       </div>
 
       <!-- Display Points -->
-      <div class="points-display" x-show="points !== null">
+      <div class="points-display" x-show="points !== null" style="color: white; text-align: center;">
         <p x-show="selectedPlatform !== 'overall'">
           Points for <span x-text="selectedPlatform"></span>:
           <span x-text="points"></span>
@@ -49,7 +49,7 @@
       </div>
 
       <!-- Back to Dashboard Button -->
-      <button @click="goBackToDashboard()" class="back-btn">
+      <button @click="goBackToDashboard()" class="back-butn">
         Back to Dashboard
       </button>
     </div>
