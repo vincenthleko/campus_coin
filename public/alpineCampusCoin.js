@@ -37,7 +37,8 @@ document.addEventListener("alpine:init", () => {
         async login() {
             // Check if the student number is in the allowed list
             if (!this.allowedStudentNumbers.includes(this.studentNumber)) {
-                this.errorMessage = "This student number is not allowed to log in.";
+                // this.errorMessage = "This student number is not allowed to log in.";
+                alert("This student number is not allowed to log in.");
                 return;
             }
 
@@ -69,7 +70,8 @@ document.addEventListener("alpine:init", () => {
             }
 
             if (!this.allowedStudentNumbers.includes(this.studentNumber)) {
-                this.errorMessage = "This student number is not allowed to log in.";
+                // this.errorMessage = "This student number is not allowed to log in.";
+                alert("This student number is not allowed to log in.");
                 return;
             }
 
@@ -103,5 +105,3 @@ document.addEventListener("alpine:init", () => {
         }
     }));
 });
-
-

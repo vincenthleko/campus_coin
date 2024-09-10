@@ -25,10 +25,10 @@
                 // Redirect to the dashboard
                 window.location.href = 'dashboard.html';
             } else {
-                this.errorMessage = 'Invalid student number. Please try again.';
+                // Show an alert for an invalid student number
+                alert('Invalid student number. Please try again.');
             }
         },
-        
         
         goToRegister() {
             window.location.href = 'registerPage.html';
@@ -51,17 +51,10 @@
                     <button type="button" class="register-btn" @click="goToRegister" style="width: 48%;">Register</button>
                 </div>
                 <!-- Display error message if student number is invalid -->
-                <p x-text="errorMessage" class="error-message" style="color:red;"></p>
+                <!-- <p x-text="errorMessage" class="error-message" style="color:red;"></p> -->
                 <a href="#" class="forgot-password">Forgot Password?</a>
             </form>
         </div>
     </div>
 </body>
 </html>
-
-
-
-
-
-
-
