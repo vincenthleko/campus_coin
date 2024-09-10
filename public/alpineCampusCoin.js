@@ -7,6 +7,7 @@ document.addEventListener("alpine:init", () => {
         password: "",
         confirmPassword: "",
         errorMessage: "",
+        showModal: false,
 
         allowedStudentNumbers: ["0001", "0002", "0003", "0004"],  // Allowed student numbers
         
@@ -90,6 +91,11 @@ document.addEventListener("alpine:init", () => {
             } else {
                 this.errorMessage = data.message;
             }
+        },
+
+        logOut() {
+            localStorage.removeItem('loggedInStudent');  // Clear logged-in student data
+            window.location.href = 'index.html';  // Redirect to login page
         },
 
         goBackToDashboard() {

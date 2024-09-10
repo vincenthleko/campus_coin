@@ -286,4 +286,29 @@ a {
     background-color: #444;
 }
 
-/* Send loan */
+/* Confirm logout */
+/* Modal Buttons */
+.confirm-btn, .cancel-btn {
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.confirm-btn {
+    background-color: #115e23; /* Green */
+    color: white;
+    width: 30%;
+}
+
+.cancel-btn {
+    background-color: #a31f2c;
+    color: white;
+    width: 30%;
+}
+
+/* Darken background behind modal */
+.modal-backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+}
