@@ -8,19 +8,45 @@
     <script src="https://unpkg.com/alpinejs" defer></script>
 </head>
 <body>
-    <div class="loan-request-container">
+    <div class="loan-request-container" x-data="loanRequestForm">
         <h2 style="color: white;">Request Loan</h2>
         <div class="loan-form">
             <div class="inputs-group">
                 <label for="loanAmount">Loan Amount:</label>
-                <input type="number" id="loanAmount" placeholder="Enter loan amount (100-500)" min="100" max="500" required>
+                <input type="number" id="loanAmount" placeholder="Enter loan amount (100-600)" x-model="loanAmount" required>
             </div>
-            <div class="buttons-group" x-data="{ navigateToDashboard() { window.location.href = './dashboard.html'; } }">
-                <!-- <button class="confirm-btn">Confirm</button> -->
-                <button class="back-btn">Confirm</button>
+            <div class="buttons-group">
+                <button class="back-btn" @click="confirmLoanRequest">Confirm</button>
                 <button class="back-btn" @click="navigateToDashboard">Back to Dashboard</button>
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener("alpine:init", () => {
+            Alpine.data("loanRequestForm", () => ({
+                loanAmount: '',
+
+                // Function to validate and confirm loan request
+                confirmLoanRequest() {
+                    const amount = parseFloat(this.loanAmount);
+
+                    if (!amount) {
+                        alert("Please enter a loan amount.");
+                    } else if (amount < 100 || amount > 600) {
+                        alert("Please enter a valid loan amount between 100 and 600.");
+                    } else {
+                        alert("Loan request received. Your balance will be updated once the loan is processed.");
+                        this.loanAmount = '';  // Clear the input after success
+                    }
+                },
+
+                // Navigate back to dashboard
+                navigateToDashboard() {
+                    window.location.href = './dashboard.html';
+                }
+            }));
+        });
+    </script>
 </body>
 </html>
