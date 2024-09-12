@@ -28,7 +28,7 @@
             <button class="dashboard-btn">Redeem Points</button>
             <!-- <button class="dashboard-btn">View Balance</button> -->
             <button class="dashboard-btn">Transaction History</button>
-            <button class="dashboard-btn full-width">Connect Wallet/View Balance</button>
+            <button class="dashboard-btn full-width" @click="window.location.href = '../connectWallet/connect.html'">Connect Wallet/View Balance</button>
         </div>
         <div class="login-container" x-data="{ 
                 logOut() { window.location.href = '../firstPage/first.html'; }

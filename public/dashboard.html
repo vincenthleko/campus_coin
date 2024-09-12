@@ -27,7 +27,7 @@
             <button class="dashboard-btn" @click="navigateToRequestLoan">Request Loan</button>
             <button class="dashboard-btn" @click="navigateToRedeemPoints">Redeem Points</button>
             <button class="dashboard-btn">Transaction History</button>
-            <button class="dashboard-btn full-width">Connect Wallet/View Balance</button>
+            <button class="dashboard-btn full-width" @click="window.location.href ='https://metamask.io/' ">Connect Wallet/View Balance</button>
         </div>
 
         <div class="login-container" x-data="{ logOut() { window.location.href = 'index.html'; } }">
