@@ -10,26 +10,32 @@
 </head>
 
 <body>
-    <!-- Alpine.js data for linking to other pages -->
     <div class="login-container" x-data="{ 
         studentNumber: '',
         password: '',
         errorMessage: '',
         allowedStudentNumbers: ['0001', '0002', '0003', '0004'],
-        
+        facilitatorLogin: 'facilitator',  // Facilitator login identifier
+
         signIn() {
             if (this.allowedStudentNumbers.includes(this.studentNumber)) {
                 // Save the student number in local storage
                 localStorage.setItem('loggedInStudent', this.studentNumber);
-        
-                // Redirect to the dashboard
+
+                // Redirect to the student dashboard
                 window.location.href = 'dashboard.html';
+            } else if (this.studentNumber === this.facilitatorLogin) {
+                // Save facilitator login in local storage
+                localStorage.setItem('loggedInFacilitator', this.studentNumber);
+
+                // Redirect to the facilitator dashboard
+                window.location.href = 'nsfas-dashboard.html';
             } else {
                 // Show an alert for an invalid student number
-                alert('Invalid student number. Please try again.');
+                alert('Invalid student number or facilitator login. Please try again.');
             }
         },
-        
+
         goToRegister() {
             window.location.href = 'registerPage.html';
         }
@@ -39,7 +45,7 @@
             <img src="logo.png" alt="Campus Coin Logo" class="logo">
 
             <!-- Login Form -->
-            <form @submit.prevent="signIn"> <!-- Inline Alpine.js function for sign-in -->
+            <form @submit.prevent="signIn"> 
                 <div class="input-group">
                     <input type="text" placeholder="Enter your username" x-model="studentNumber" required>
                 </div>
@@ -50,8 +56,6 @@
                     <button type="submit" class="sign-in-btn" style="width: 48%;">Sign In</button>
                     <button type="button" class="register-btn" @click="goToRegister" style="width: 48%;">Register</button>
                 </div>
-                <!-- Display error message if student number is invalid -->
-                <!-- <p x-text="errorMessage" class="error-message" style="color:red;"></p> -->
                 <a href="#" class="forgot-password">Forgot Password?</a>
             </form>
         </div>

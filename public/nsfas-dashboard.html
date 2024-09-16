@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NSFAS Facilitator Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+</head>
+<body>
+    <div class="dashboard-container" x-data="{ 
+        showModal: false,  // Define showModal to manage modal visibility
+        logOut() {
+            localStorage.removeItem('loggedInFacilitator');
+            window.location.href = 'index.html';
+        }
+    }">
+        <h1>Facilitator Dashboard</h1>
+        <div class="buttons-group">
+            <button @click="sendPayments" style="width: 48%;">Send Payment to all Recipients</button>
+            <button @click="viewTransactions" style="width: 48%;">View Transactions</button>
+        </div>
+
+        <!-- Log Out Button -->
+        <div class="log-in-container">
+            <button class="logout-btn" @click="showModal = true">Log out</button>
+            
+            <!-- Log Out Confirmation Modal -->
+            <div 
+                class="modal" 
+                x-show="showModal" 
+                x-transition 
+                style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; padding: 20px; border-radius: 8px; z-index: 1000; width: 300px; text-align: center; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);"
+            >
+                <p>Are you sure you want to log out?</p>
+                <div style="margin-top: 20px;">
+                    <button @click="logOut()" class="confirm-btn">Yes</button>
+                    <button @click="showModal = false" class="cancel-btn">No</button>
+                </div>
+            </div>
+
+            <!-- Modal overlay (to darken the background) -->
+            <div 
+                x-show="showModal" 
+                x-transition 
+                style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 999;"
+            ></div>
+
+            <div class="bottom-bar">
+                <p>2024 &middot; Campus Coin &middot; All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function sendPayments() {
+            alert('Payments have been sent to all recipients!');
+            // Add logic for sending payments
+        }
+
+        function viewTransactions() {
+            // Add logic for viewing transactions
+        }
+    </script>
+</body>
+</html>
