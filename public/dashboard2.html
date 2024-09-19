@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Coin - Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+</head>
+
+<body>
+    <div x-data="campusCoin" class="dashboard-container" x-clock>
+        <div class="top-bar">
+            <div class="profile-pic">
+                <img src="profile-placeholder.png" alt="Profile Picture">
+            </div>
+            <!-- Display the logged-in student number here -->
+            <div class="user-id" x-text="studentNumber"></div>
+        </div>
+
+        <div class="button-grid">
+            <button class="dashboard-btn" @click="navigateToSendLoan">Send Loan</button>
+            <button class="dashboard-btn" @click="navigateToRequestLoan">Request Loan</button>
+            <button class="dashboard-btn" @click="navigateToRedeemPoints">Redeem Points</button>
+            <button class="dashboard-btn">Transaction History</button>
+            <button class="dashboard-btn full-width"> 
+                <a href="https://metamask.io/">Connect Wallet/View Balance</a>
+            </button>
+        </div>
+
+        <!-- Log out button and modal logic -->
+        <div class="log-in-container">
+            <button class="logout-btn" @click="showModal = true">Log out</button>
+            
+            <!-- Log Out Confirmation Modal -->
+            <div 
+                class="modal" 
+                x-show="showModal" 
+                x-transition 
+                style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; padding: 20px; border-radius: 8px; z-index: 1000; width: 300px; text-align: center; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);"
+            >
+                <p>Are you sure you want to log out?</p>
+                <div style="margin-top: 20px;">
+                    <button @click="logOut()" class="confirm-btn">Yes</button>
+                    <button @click="showModal = false" class="cancel-btn">No</button>
+                </div>
+            </div>
+
+            <!-- Modal overlay (to darken the background) -->
+            <div 
+                x-show="showModal" 
+                x-transition 
+                style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 999;"
+            ></div>
+
+            <div class="bottom-bar">
+                <p>2024 &middot; Campus Coin &middot; All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("alpine:init", () => {
+            Alpine.data("campusCoin", () => ({
+                studentNumber: localStorage.getItem('loggedInStudent') || 'Unknown User',
+                showModal: false,
+                
+                navigateToSendLoan() { window.location.href = 'sendLoan.html'; },
+                navigateToRequestLoan() { window.location.href = 'requestLoan.html'; },
+                navigateToRedeemPoints() { window.location.href = 'redeemPoints.html'; },
+
+                logOut() { 
+                    localStorage.removeItem('loggedInStudent'); 
+                    window.location.href = 'index.html'; 
+                },
+            }));
+        });
+    </script>
+</body>
+
+</html>
+
