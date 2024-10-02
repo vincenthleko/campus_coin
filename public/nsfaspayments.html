@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NSFAS Facilitator Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.6.9/dist/ethers.umd.min.js"></script>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url("background.jpg");
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: whitesmoke;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"],
+        button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #3a5a40;
+            color: white;
+            border: none;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #444;
+        }
+
+        .dashboard-container {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .results {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            color: white;
+            max-height: 150px;
+            overflow-y: auto;
+        }
+
+        .input-container {
+            margin: 10px 0;
+        }
+
+        .bottom-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            margin-top: auto;
+        }
+
+        .logout-btn {
+            width: 120px;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 20px;
+            }
+
+            .dashboard-container {
+                padding: 15px;
+            }
+
+            button {
+                padding: 12px;
+                font-size: 0.9em;
+            }
+
+            .results {
+                max-height: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <h1>NSFAS Facilitator Dashboard</h1>
+        
+        <div class="top-bar">
+            <div class="profile-pic">
+                <img src="logo.png" alt="Profile Picture">
+            </div>
+            <div class="user-id">User ID</div>
+        </div>
+
+        <div class="input-container">
+            <input type="text" id="userName" placeholder="Enter User Name" />
+            <input type="text" id="walletAddress" placeholder="Enter Wallet Address" />
+            <button class="dashboard-btn" id="addUserBtn">Add User</button>
+        </div>
+
+        <div class="input-container">
+            <input type="text" id="paymentAmount" placeholder="Enter ETH Amount" />
+            <button class="dashboard-btn" id="sendPaymentBtn">Send Payment to All Users</button>
+        </div>
+
+        <div class="results" id="results"></div>
+
+        <div class="bottom-bar">
+            <span>Balance:</span>
+            <button class="logout-btn">Logout</button>
+        </div>
+    </div>
+
+    <script>
+        const { ethers } = window.ethers;
+
+        const contractAddress = "0xe1ab4a8ad621ca43671b798646fba297ceb5b534";
+        const contractABI = [
+            "function addUser(string memory _name, address _walletAdd)",
+            "function sendPayment(address payable recipient) external payable",
+            "event PaymentSent(address indexed recipient, uint256 amount)"
+        ];
+
+        const INFURA_ID = '3c63b0011e354e4f8f996debd85fbb2f';
+        const provider = new ethers.providers.JsonRpcProvider(`https://linea-sepolia.infura.io/v3/${INFURA_ID}`);
+        
+        const privateKey = '0x30b6d9026e9db375dfa808af86500f6cff84433298dbde0f355cff3708e17a33'; // NSFAS admin
+        const signer = new ethers.Wallet(privateKey, provider);
+        
+        const allowancePaymentContract = new ethers.Contract(contractAddress, contractABI, signer);
+        
+        const users = []; // Array to hold added users
+
+        async function addUser(contract, name, walletAddress) {
+            try {
+                const tx = await contract.addUser(name, walletAddress);
+                await tx.wait();
+                users.push({ name, walletAddress }); // Store user
+                return `User ${name} added successfully!`;
+            } catch (error) {
+                return `Error adding user ${name}: ${error.message}`;
+            }
+        }
+
+        async function sendPayment(contract, recipient, amountInEther) {
+            try {
+                const amountInWei = ethers.utils.parseEther(amountInEther);
+                const tx = await contract.sendPayment(recipient, { value: amountInWei });
+                await tx.wait();
+                return `Payment of ${amountInEther} ETH sent to ${recipient}`;
+            } catch (error) {
+                return `Error sending payment to ${recipient}: ${error.message}`;
+            }
+        }
+
+        function appendResult(message) {
+            const resultDiv = document.getElementById('results');
+            resultDiv.innerHTML += `<p>${message}</p>`;
+        }
+
+        document.getElementById('addUserBtn').addEventListener('click', async () => {
+            const userName = document.getElementById('userName').value;
+            const userAddress = document.getElementById('walletAddress').value;
+
+            if (!userName || !ethers.utils.isAddress(userAddress)) {
+                appendResult("Please enter a valid user name and wallet address.");
+                return;
+            }
+
+            const resultMessage = await addUser(allowancePaymentContract, userName, userAddress);
+            appendResult(resultMessage);
+        });
+
+        document.getElementById('sendPaymentBtn').addEventListener('click', async () => {
+            const amountInEther = document.getElementById('paymentAmount').value;
+
+            if (!amountInEther || isNaN(amountInEther) || parseFloat(amountInEther) <= 0) {
+                appendResult("Please enter a valid ETH amount.");
+                return;
+            }
+
+            for (const user of users) {
+                const resultMessage = await sendPayment(allowancePaymentContract, user.walletAddress, amountInEther);
+                appendResult(resultMessage);
+            }
+        });
+
+        document.querySelector('.logout-btn').addEventListener('click', () => {
+            alert("Logging out...");
+        });
+    </script>
+</body>
+</html>
