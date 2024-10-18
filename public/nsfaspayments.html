@@ -141,44 +141,364 @@
     <script>
         const { ethers } = window.ethers;
 
-        const contractAddress = "0xe1ab4a8ad621ca43671b798646fba297ceb5b534";
-        const contractABI = [
-            "function addUser(string memory _name, address _walletAdd)",
-            "function sendPayment(address payable recipient) external payable",
-            "event PaymentSent(address indexed recipient, uint256 amount)"
-        ];
+        const contractAddress = "0x14d4Ea84B7421D56F0b6F53a1f1a9869f9b30d4b";
+        const contractABI =  [
+    {
+      "inputs": [],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "amountPaid",
+          "type": "uint256"
+        }
+      ],
+      "name": "FundsDistributed",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "loanId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "borrower",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "FundsTransferred",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "loanId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "borrower",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "interestRate",
+          "type": "uint256"
+        }
+      ],
+      "name": "LoanRequested",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        }
+      ],
+      "name": "UserAdded",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "admin",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function",
+      "constant": true
+    },
+    {
+      "inputs": [],
+      "name": "gasFeePercentage",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function",
+      "constant": true
+    },
+    {
+      "inputs": [],
+      "name": "loanCount",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function",
+      "constant": true
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "loans",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "interestRate",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "borrower",
+          "type": "address"
+        },
+        {
+          "internalType": "bool",
+          "name": "isFunded",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function",
+      "constant": true
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "userCredit",
+      "outputs": [
+        {
+          "internalType": "int256",
+          "name": "",
+          "type": "int256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function",
+      "constant": true
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "users",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function",
+      "constant": true
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        }
+      ],
+      "name": "addUser",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "interestRate",
+          "type": "uint256"
+        }
+      ],
+      "name": "requestLoan",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "loanId",
+          "type": "uint256"
+        }
+      ],
+      "name": "fundLoan",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function",
+      "payable": true
+    },
+    {
+      "inputs": [],
+      "name": "getActiveLoans",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "amount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "interestRate",
+              "type": "uint256"
+            },
+            {
+              "internalType": "address",
+              "name": "borrower",
+              "type": "address"
+            },
+            {
+              "internalType": "bool",
+              "name": "isFunded",
+              "type": "bool"
+            }
+          ],
+          "internalType": "struct StudentLending.Loan[]",
+          "name": "",
+          "type": "tuple[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function",
+      "constant": true
+    },
+    {
+      "inputs": [],
+      "name": "payUsers",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ];
 
         const INFURA_ID = '3c63b0011e354e4f8f996debd85fbb2f';
-        const provider = new ethers.providers.JsonRpcProvider(`https://linea-sepolia.infura.io/v3/${INFURA_ID}`);
+        const provider = new ethers.providers.JsonRpcProvider('http://localhost:7545');
         
-        const privateKey = '0x30b6d9026e9db375dfa808af86500f6cff84433298dbde0f355cff3708e17a33'; // NSFAS admin
+        const privateKey = '0x5efacfc725cb2b15708f559e35a89ee4bc6c22c7a9484bd5081758ddc09047f1'; // NSFAS admin
         const signer = new ethers.Wallet(privateKey, provider);
         
         const allowancePaymentContract = new ethers.Contract(contractAddress, contractABI, signer);
         
         const users = []; // Array to hold added users
 
-        async function addUser(contract, name, walletAddress) {
-            try {
-                const tx = await contract.addUser(name, walletAddress);
-                await tx.wait();
-                users.push({ name, walletAddress }); // Store user
-                return `User ${name} added successfully!`;
-            } catch (error) {
-                return `Error adding user ${name}: ${error.message}`;
-            }
-        }
+        async function addUsers(userAddresses) {
+    for (const userAddress of userAddresses) {
+        const exists = await userExists(userAddress);
+        if (!exists) {
+            const gasPrice = await web3.eth.getGasPrice();
+            const estimatedGas = await contractInstance.methods.addUser(userAddress).estimateGas({ from: adminAccount.address });
 
-        async function sendPayment(contract, recipient, amountInEther) {
-            try {
-                const amountInWei = ethers.utils.parseEther(amountInEther);
-                const tx = await contract.sendPayment(recipient, { value: amountInWei });
-                await tx.wait();
-                return `Payment of ${amountInEther} ETH sent to ${recipient}`;
-            } catch (error) {
-                return `Error sending payment to ${recipient}: ${error.message}`;
-            }
+            const tx = {
+                from: adminAccount.address,
+                to: contractAddress,
+                gas: estimatedGas,
+                gasPrice: gasPrice,
+                data: contractInstance.methods.addUser(userAddress).encodeABI()
+            };
+
+            const signedTx = await web3.eth.accounts.signTransaction(tx, adminPrivateKey);
+            await web3.eth.sendSignedTransaction(signedTx.rawTransaction);
+            console.log(`User ${userAddress} added.`);
+        } else {
+            console.log(`User ${userAddress} added successfully...`);
         }
+    }
+}
+
+// Function to pay users based on user credit
+async function payUsers(userAddresses) {
+    const gasPrice = await web3.eth.getGasPrice();
+
+    for (const userAddress of userAddresses) {
+        const estimatedGas = 21000; // Standard gas limit for simple transfers
+        const credit = await contractInstance.methods.userCredit(userAddress).call();
+        const totalAmount = 10 * 1e18 + Number(credit); // 10 ETH + user credit
+
+        const tx = {
+            from: adminAccount.address,
+            to: userAddress,
+            gas: estimatedGas,
+            gasPrice: gasPrice,
+            value: totalAmount.toString(), // Convert to string for transaction
+        };
+
+        const signedTx = await web3.eth.accounts.signTransaction(tx, adminPrivateKey);
+        await web3.eth.sendSignedTransaction(signedTx.rawTransaction);
+        console.log(`Paid ${web3.utils.fromWei(totalAmount.toString(), 'ether')} ETH to ${userAddress}.`);
+    }
+}
 
         function appendResult(message) {
             const resultDiv = document.getElementById('results');

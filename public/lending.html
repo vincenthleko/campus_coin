@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Lending Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.6.9/dist/ethers.umd.min.js"></script>
+    <style>
+        /* Basic styles omitted for brevity */
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <h1>Student Lending Dashboard</h1>
+        <input type="text" id="userAddress" placeholder="Your Wallet Address" />
+        <input type="number" id="loanAmount" placeholder="Enter Loan Amount (ETH)" />
+        <button id="requestLoanBtn">Request Loan</button>
+        <input type="text" id="lenderAddress" placeholder="Lender's Wallet Address" />
+        <button id="issueLoanBtn">Issue Loan</button>
+        <div id="results"></div>
+    </div>
+
+    <script>
+        const { ethers } = window.ethers;
+
+        const contractAddress = "YOUR_CONTRACT_ADDRESS_HERE";
+        const contractABI = [
+            "function depositFunds() external payable",
+            "function requestLoan(uint256 amount) external",
+            "function issueLoan(address borrower) external",
+            "function setCreditScore(address borrower, uint256 score) external",
+            "function lenderBalances(address) external view returns (uint256)",
+            "function borrowerBalances(address) external view returns (uint256)",
+        ];
+
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const signer = provider.getSigner();
+        const studentLendingContract = new ethers.Contract(contractAddress, contractABI, signer);
+
+        document.getElementById('requestLoanBtn').addEventListener('click', async () => {
+            const loanAmount = document.getElementById('loanAmount').value;
+            await studentLendingContract.requestLoan(ethers.utils.parseEther(loanAmount));
+            document.getElementById('results').innerText = `Requested loan of ${loanAmount} ETH`;
+        });
+
+        document.getElementById('issueLoanBtn').addEventListener('click', async () => {
+            const lenderAddress = document.getElementById('lenderAddress').value;
+            const userAddress = document.getElementById('userAddress').value;
+            await studentLendingContract.issueLoan(userAddress);
+            document.getElementById('results').innerText = `Issued loan to ${userAddress}`;
+        });
+    </script>
+</body>
+</html>
