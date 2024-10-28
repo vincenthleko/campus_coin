@@ -277,15 +277,17 @@ a {
 
 .risk-level-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 20px;
+  margin-bottom: 10px;
+  justify-content: center;
 }
 
 .risk-level {
   padding: 10px;
   background-color: rgba(255, 255, 255, 0.7);
   border-radius: 5px;
-  text-align: left;
+  text-align: center;
 }
 
 .risk-level h3 {

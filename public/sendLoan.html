@@ -38,7 +38,12 @@
         <div class="fund-loan-section">
             <label for="loanId">Enter Loan ID to Fund:</label>
             <input type="number" id="loanId" placeholder="Enter Loan ID" x-model="loanId" required>
-            <button @click="fundLoan">Fund Loan</button>
+
+            <div class="buttons-group">
+                <button class="back-btn" @click="fundLoan">Fund Loan</button>
+                <button class="back-btn" @click="navigateToDashboard">Back to Dashboard</button>
+            </div>
+
         </div>
     </div>
 
@@ -63,7 +68,10 @@
                         alert(`You have successfully funded Loan ID: ${loanToFund.id}. Amount: ${loanToFund.amount} at ${loanToFund.interestRate}%. Expected Return: ${loanToFund.expectedReturn}.`);
                         this.loanId = ''; // Clear the input after funding
                     }
-                }
+                },
+                navigateToDashboard() {
+                window.location.href = 'dashboard2.html'; // Redirect to dashboard2.html
+            }
             }));
         });
     </script>
