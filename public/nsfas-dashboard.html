@@ -9,14 +9,14 @@
     <link rel="icon" href="./favicon (1).ico" type="image/x-icon">
 </head>
 <body>
-    <div class="dashboard-container">
+    <div x-data="campusCoin()" class="dashboard-container">
         <h1>NSFAS Facilitator Dashboard</h1>
         
         <div class="top-bar">
             <div class="profile-pic">
                 <img src="logo.png" alt="Profile Picture">
             </div>
-            <div class="user-id">User ID</div>
+            <div class="user-id">NSFAS</div>
         </div>
 
         <div class="input-container">
@@ -32,13 +32,50 @@
 
         <div class="results" id="results"></div>
 
-        <div class="bottom-bar">
-            <span></span>
-            <button class="logout-btn">Logout</button>
+        <div class="log-in-container">
+            <button class="logout-btn" @click="showModal = true">Log out</button>
+            
+            <!-- Log Out Confirmation Modal -->
+            <div 
+                class="modal" 
+                x-show="showModal" 
+                x-transition 
+                style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; padding: 20px; border-radius: 8px; z-index: 1000; width: 300px; text-align: center; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);"
+            >
+                <p>Are you sure you want to log out?</p>
+                <div style="margin-top: 20px;">
+                    <button @click="logOut()" class="confirm-btn">Yes</button>
+                    <button @click="showModal = false" class="cancel-btn">No</button>
+                </div>
+            </div>
+
+            <!-- Modal overlay (to darken the background) -->
+            <div 
+                x-show="showModal" 
+                x-transition 
+                style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 999;"
+            ></div>
+
+            <div class="bottom-bar">
+                <p>2024 &middot; Campus Coin &middot; All rights reserved.</p>
+            </div>
         </div>
+        
     </div>
 
     <script>
+        document.addEventListener("alpine:init", () => {
+            Alpine.data("campusCoin", () => ({
+                studentNumber: localStorage.getItem('loggedInStudent') || 'Unknown User',
+                showModal: false,
+                
+                logOut() { 
+                    localStorage.removeItem('loggedInStudent'); 
+                    window.location.href = 'index.html'; 
+                },
+            }));
+        });
+
         const { ethers } = window.ethers;
 
         const contractAddress = "0xe1ab4a8ad621ca43671b798646fba297ceb5b534";
@@ -110,10 +147,6 @@
                 const resultMessage = await sendPayment(allowancePaymentContract, user.walletAddress, amountInEther);
                 appendResult(resultMessage);
             }
-        });
-
-        document.querySelector('.logout-btn').addEventListener('click', () => {
-            alert("Logging out...");
         });
     </script>
 </body>

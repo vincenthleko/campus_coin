@@ -57,7 +57,7 @@ document.addEventListener("alpine:init", () => {
             const data = await response.json();
 
             if (data.success) {
-                window.location.href = 'dashboard.html';  // Redirect to dashboard page
+                window.location.href = 'dashboard2.html';  // Redirect to dashboard page
             } else {
                 this.errorMessage = data.message;
             }
@@ -101,7 +101,7 @@ document.addEventListener("alpine:init", () => {
         },
 
         goBackToDashboard() {
-            window.location.href = 'dashboard.html';  // Use relative path to redirect to dashboard.html
+            window.location.href = 'dashboard2.html';  // Use relative path to redirect to dashboard.html
         }
     }));
 });
