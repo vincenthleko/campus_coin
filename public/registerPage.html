@@ -27,13 +27,13 @@
         <div class="register-box">
             <h1>Register for Campus Coin</h1>
             <form @submit.prevent="register">
-                <div class="input-group">
+                <div class="input-groups">
                     <input type="text" placeholder="Enter your student number" required x-model="studentNumber">
                 </div>
-                <div class="input-group">
+                <div class="input-groups">
                     <input type="password" placeholder="Enter your password" required x-model="password">
                 </div>
-                <div class="input-group">
+                <div class="input-groups">
                     <input type="password" placeholder="Confirm your password" required x-model="confirmPassword">
                 </div>
                 <p x-text="errorMessage" class="error-message" style="color: red;"></p>

@@ -65,7 +65,7 @@ a {
   background: rgba(0, 0, 0, 0.5);
   padding: 30px;
   border-radius: 10px;
-  width: 100%;
+  width: 70%;
   max-width: 400px;
   text-align: center;
 }
@@ -80,6 +80,40 @@ a {
   width: 380px;
 }
 
+/* .input-groupss {
+  margin-bottom: 15px;
+  width: 95%;
+} */
+
+.input-groupss {
+  margin-bottom: 15px;
+  width: 92%;
+  position: relative; /* Positioning context for the icon */
+}
+
+.input-groupss input {
+  width: 100%; /* Full width */
+  padding-left: 30px; /* Add padding for the icon space */
+  border: 1px solid #ccc; /* Input border */
+  border-radius: 5px; /* Rounded corners */
+  color: black; /* Set text color to black for visibility */
+  background-color: white !important; /* Set background color of the input to white */
+}
+
+/* Username input icon */
+.input-groupss:first-child input {
+  background: url('./edit (1).png') no-repeat 10px center; /* Background image for username */
+  background-size: 20px; /* Size of the icon */
+}
+
+/* Password input icon */
+.input-groupss:nth-child(2) input {
+  background: url('./lock-icon.png') no-repeat 10px center; /* Background image for password */
+  background-size: 20px; /* Size of the icon */
+}
+
+
+
 .button-group {
   margin-top: 20px;
 }
@@ -90,10 +124,14 @@ a {
   font-size: 14px;
 }
 
+.forgot-password:hover, .back-to-login:hover {
+  color: rgb(199, 159, 85);
+}
+
 
 /* Dashboard Page Styles */
 .dashboard-container {
-  width: 100%;
+  width: 80%;
   max-width: 400px;
   background-color: rgba(0, 0, 0, 0.4);
   border-radius: 15px;
@@ -166,6 +204,7 @@ a {
   cursor: pointer;
   transition: background-color 0.3s;
   margin-bottom: 10px;
+  width: 103.5%;
 }
 
 .dashboard-btn:hover {
@@ -202,7 +241,7 @@ a {
 
 /* Request loan */
 .loan-request-container {
-  width: 100%;
+  width: 80%;
   max-width: 400px;
   background-color: rgba(0, 0, 0, 0.4);
   border-radius: 15px;
@@ -229,10 +268,16 @@ a {
 }
 
 .inputs-group input {
-  width: 100%;
+  width: 97%;
   padding: 10px;
   border-radius: 5px;
   border: none;
+}
+
+@media (min-width: 768px) {
+  .inputs-group input {
+      width: 100%; /* Set width to 100% on larger screens */
+  }
 }
 
 .buttons-group {
