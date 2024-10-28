@@ -9,59 +9,112 @@
     <link rel="icon" href="./favicon (1).ico" type="image/x-icon">
 </head>
 <body>
-    <div class="dashboard-container" x-data="{ 
-        showModal: false,  // Define showModal to manage modal visibility
-        logOut() {
-            localStorage.removeItem('loggedInFacilitator');
-            window.location.href = 'index.html';
-        }
-    }">
-        <h1>Facilitator Dashboard</h1>
-        <div class="buttons-group">
-            <button @click="sendPayments" style="width: 48%;">Send Payment to all Recipients</button>
-            <button @click="viewTransactions" style="width: 48%;">View Transactions</button>
+    <div class="dashboard-container">
+        <h1>NSFAS Facilitator Dashboard</h1>
+        
+        <div class="top-bar">
+            <div class="profile-pic">
+                <img src="logo.png" alt="Profile Picture">
+            </div>
+            <div class="user-id">User ID</div>
         </div>
 
-        <!-- Log Out Button -->
-        <div class="log-in-container">
-            <button class="logout-btn" @click="showModal = true">Log out</button>
-            
-            <!-- Log Out Confirmation Modal -->
-            <div 
-                class="modal" 
-                x-show="showModal" 
-                x-transition 
-                style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; padding: 20px; border-radius: 8px; z-index: 1000; width: 300px; text-align: center; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);"
-            >
-                <p>Are you sure you want to log out?</p>
-                <div style="margin-top: 20px;">
-                    <button @click="logOut()" class="confirm-btn">Yes</button>
-                    <button @click="showModal = false" class="cancel-btn">No</button>
-                </div>
-            </div>
+        <div class="input-container">
+            <input type="text" id="userName" placeholder="Enter User Name" />
+            <input type="text" id="walletAddress" placeholder="Enter Wallet Address" />
+            <button class="dashboard-btn" id="addUserBtn">Add User</button>
+        </div>
 
-            <!-- Modal overlay (to darken the background) -->
-            <div 
-                x-show="showModal" 
-                x-transition 
-                style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 999;"
-            ></div>
+        <div class="input-container">
+            <input type="text" id="paymentAmount" placeholder="Enter ETH Amount" />
+            <button class="dashboard-btn" id="sendPaymentBtn">Send Payment to All Users</button>
+        </div>
 
-            <div class="bottom-bar">
-                <p>2024 &middot; Campus Coin &middot; All rights reserved.</p>
-            </div>
+        <div class="results" id="results"></div>
+
+        <div class="bottom-bar">
+            <span></span>
+            <button class="logout-btn">Logout</button>
         </div>
     </div>
 
     <script>
-        function sendPayments() {
-            alert('Payments have been sent to all recipients!');
-            // Add logic for sending payments
+        const { ethers } = window.ethers;
+
+        const contractAddress = "0xe1ab4a8ad621ca43671b798646fba297ceb5b534";
+        const contractABI = [
+            "function addUser(string memory _name, address _walletAdd)",
+            "function sendPayment(address payable recipient) external payable",
+            "event PaymentSent(address indexed recipient, uint256 amount)"
+        ];
+
+        const INFURA_ID = '3c63b0011e354e4f8f996debd85fbb2f';
+        const provider = new ethers.providers.JsonRpcProvider(`HTTP://127.0.0.1:7545`);
+        
+        const privateKey = '0xc547aab1971c9a4931ec972cbdf15c34a59d499a75d950db398b0d85980ea8d2'; // NSFAS admin
+        const signer = new ethers.Wallet(privateKey, provider);
+        
+        const allowancePaymentContract = new ethers.Contract(contractAddress, contractABI, signer);
+        
+        const users = []; // Array to hold added users
+
+        async function addUser(contract, name, walletAddress) {
+            try {
+                const tx = await contract.addUser(name, walletAddress);
+                await tx.wait();
+                users.push({ name, walletAddress }); // Store user
+                return `User ${name} added successfully!`;
+            } catch (error) {
+                return `Error adding user ${name}: ${error.message}`;
+            }
         }
 
-        function viewTransactions() {
-            // Add logic for viewing transactions
+        async function sendPayment(contract, recipient, amountInEther) {
+            try {
+                const amountInWei = ethers.utils.parseEther(amountInEther);
+                const tx = await contract.sendPayment(recipient, { value: amountInWei });
+                await tx.wait();
+                return `Payment of ${amountInEther} ETH sent to ${recipient}`;
+            } catch (error) {
+                return `Error sending payment to ${recipient}: ${error.message}`;
+            }
         }
+
+        function appendResult(message) {
+            const resultDiv = document.getElementById('results');
+            resultDiv.innerHTML += `<p>${message}</p>`;
+        }
+
+        document.getElementById('addUserBtn').addEventListener('click', async () => {
+            const userName = document.getElementById('userName').value;
+            const userAddress = document.getElementById('walletAddress').value;
+
+            if (!userName || !ethers.utils.isAddress(userAddress)) {
+                appendResult("Please enter a valid user name and wallet address.");
+                return;
+            }
+
+            const resultMessage = await addUser(allowancePaymentContract, userName, userAddress);
+            appendResult(resultMessage);
+        });
+
+        document.getElementById('sendPaymentBtn').addEventListener('click', async () => {
+            const amountInEther = document.getElementById('paymentAmount').value;
+
+            if (!amountInEther || isNaN(amountInEther) || parseFloat(amountInEther) <= 0) {
+                appendResult("Please enter a valid ETH amount.");
+                return;
+            }
+
+            for (const user of users) {
+                const resultMessage = await sendPayment(allowancePaymentContract, user.walletAddress, amountInEther);
+                appendResult(resultMessage);
+            }
+        });
+
+        document.querySelector('.logout-btn').addEventListener('click', () => {
+            alert("Logging out...");
+        });
     </script>
 </body>
 </html>

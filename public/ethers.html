@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connect/Disconnect MetaMask</title>
+  <script src="https://cdn.jsdelivr.net/npm/ethers@6.0.0/dist/ethers.umd.min.js"></script>
+</head>
+<body>
+  <button id="connectButton">Connect MetaMask</button>
+  <button id="disconnectButton" style="display: none;">Disconnect MetaMask</button>
+  <div id="accountDisplay"></div>
+  <script>
+    let provider;
+    let signer;
+    let account;
+
+    async function connectWallet() {
+      if (typeof window.ethereum === "undefined") {
+        alert("MetaMask is not installed. Please install it to use this app.");
+        return;
+      }
+
+      try {
+        const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
+        account = accounts[0];
+        console.log("Connected account:", account);
+
+        // Initialize ethers provider and signer
+        provider = new ethers.providers.Web3Provider(window.ethereum);
+        signer = provider.getSigner();
+
+        // Display the connected account
+        document.getElementById("accountDisplay").innerText = `Connected Account: ${account}`;
+        document.getElementById("connectButton").style.display = "none";
+        document.getElementById("disconnectButton").style.display = "block";
+      } catch (error) {
+        console.error("Error connecting to MetaMask:", error);
+      }
+    }
+
+    function disconnectWallet() {
+      account = null; // Clear account information
+      provider = null; // Clear provider
+      signer = null; // Clear signer
+
+      // Update UI
+      document.getElementById("accountDisplay").innerText = "Disconnected";
+      document.getElementById("connectButton").style.display = "block";
+      document.getElementById("disconnectButton").style.display = "none";
+    }
+
+    // Event listeners for buttons
+    document.getElementById("connectButton").onclick = connectWallet;
+    document.getElementById("disconnectButton").onclick = disconnectWallet;
+
+    // Check for network changes
+    window.ethereum.on('chainChanged', (chainId) => {
+      console.log("Network changed to:", chainId);
+      // Handle the network change
+    });
+  </script>
+</body>
+</html>

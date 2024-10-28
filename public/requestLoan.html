@@ -14,7 +14,11 @@
         <div class="loan-form">
             <div class="inputs-group">
                 <label for="loanAmount">Loan Amount:</label>
-                <input type="number" id="loanAmount" placeholder="Enter loan amount (100-600)" x-model="loanAmount" required>
+                <input type="number" id="loanAmount" placeholder="Enter loan amount (1-5 ETH)" x-model="loanAmount" required>
+            </div>
+            <div class="inputs-group">
+                <label for="interestRate">Interest Rate (%):</label>
+                <input type="number" id="interestRate" placeholder="Enter interest rate (15-25%)" x-model="interestRate" required>
             </div>
             <div class="buttons-group">
                 <button class="back-btn" @click="confirmLoanRequest">Confirm</button>
@@ -27,18 +31,25 @@
         document.addEventListener("alpine:init", () => {
             Alpine.data("loanRequestForm", () => ({
                 loanAmount: '',
+                interestRate: '',
 
                 // Function to validate and confirm loan request
                 confirmLoanRequest() {
                     const amount = parseFloat(this.loanAmount);
+                    const rate = parseFloat(this.interestRate);
 
                     if (!amount) {
                         alert("Please enter a loan amount.");
-                    } else if (amount < 100 || amount > 600) {
-                        alert("Please enter a valid loan amount between 100 and 600.");
+                    // } else if (amount < 100 || amount > 600) {
+                    //     alert("Please enter a valid loan amount between 100 and 600.");
+                    } else if (!rate) {
+                        alert("Please enter an interest rate.");
+                    } else if (rate < 15 || rate > 25) {
+                        alert("Please enter a valid interest rate between 15% and 25%.");
                     } else {
-                        alert("Loan request received. Your balance will be updated once the loan is processed.");
+                        alert(`Loan request received. Your balance will be updated once the loan is processed. Interest rate: ${rate}%.`);
                         this.loanAmount = '';  // Clear the input after success
+                        this.interestRate = ''; // Clear the interest rate after success
                     }
                 },
 
