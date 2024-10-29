@@ -238,8 +238,8 @@ body {
   }
 
   .dynamic-input {
-    width: 100%; /* Set to full width; adjust as needed */
-    height: 40px; /* Adjust the height */
+    width: 95.5%; /* Set to full width; adjust as needed */
+    height: 30px; /* Adjust the height */
     padding: 10px; /* Add padding for better text spacing */
     margin: 10px 0; /* Add margin for spacing between inputs */
     border: 1px solid #ccc; /* Add border styling */
