@@ -1,0 +1,79 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Active Loans - Campus Coin</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/alpinejs" defer></script>
+    <link rel="icon" href="./favicon (1).ico" type="image/x-icon">
+</head>
+<body>
+    <div class="active-loans-container" x-data="activeLoans">
+        <h2>Active Loans</h2>
+
+        <table class="loans-table">
+            <thead>
+                <tr>
+                    <th>Loan ID</th>
+                    <th>Loan Amount</th>
+                    <th>Interest Rate (%)</th>
+                    <th>Expected Return</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <template x-for="loan in loans" :key="loan.id">
+                    <tr>
+                        <td x-text="loan.id"></td>
+                        <td x-text="loan.amount"></td>
+                        <td x-text="loan.interestRate"></td>
+                        <td x-text="loan.expectedReturn"></td>
+                        <td x-text="loan.status"></td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+
+        <div class="fund-loan-section">
+            <label for="loanId">Enter Loan ID to Fund:</label>
+            <input type="number" id="loanId" placeholder="Enter Loan ID" x-model="loanId" required>
+
+            <div class="buttons-group">
+                <button class="back-btn" @click="fundLoan">Fund Loan</button>
+                <button class="back-btn" @click="navigateToDashboard">Back to Dashboard</button>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("alpine:init", () => {
+            Alpine.data("activeLoans", () => ({
+                loans: [
+                    { id: 1, amount: '5 ETH', interestRate: 20, expectedReturn: '6 ETH', status: 'Active' },
+                   // { id: 2, amount: '1.5 ETH', interestRate: 15, expectedReturn: '0.225 ETH', status: 'Active' },
+                   // { id: 3, amount: '3 ETH', interestRate: 25, expectedReturn: '0.75 ETH', status: 'Active' }
+                ],
+                loanId: '',
+
+                fundLoan() {
+                    const loanToFund = this.loans.find(loan => loan.id === parseInt(this.loanId));
+                    
+                    if (!this.loanId) {
+                        alert("Please enter a loan ID.");
+                    } else if (!loanToFund) {
+                        alert("Loan ID not found. Please enter a valid ID.");
+                    } else {
+                        alert(`You have successfully funded Loan ID: ${loanToFund.id}. Amount: ${loanToFund.amount} at ${loanToFund.interestRate}%. Expected Return: ${loanToFund.expectedReturn}.`);
+                        this.loanId = ''; // Clear the input after funding
+                    }
+                },
+                navigateToDashboard() {
+                window.location.href = 'dashboard2.html'; // Redirect to dashboard2.html
+            }
+            }));
+        });
+    </script>
+</body>
+</html> -->

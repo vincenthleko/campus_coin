@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Campus Coin - Redeem Points</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script defer src="alpineCampusCoin.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+      defer
+    ></script>
+    <link rel="icon" href="./favicon (1).ico" type="image/x-icon">
+  </head>
+  <body>
+    <div
+      class="dashboard-container"
+      x-data="campusCoin"
+      x-init="username = localStorage.getItem('loggedInStudent') || ''"
+    >
+      <h1 style="color: white">Redeem Your Points</h1>
+
+      <!-- Automatically use the logged-in student number -->
+      <div class="input-groups">
+        <label for="username" style="color: white"
+          >Logged-in username:</label
+        >
+        <input type="text" id="username" x-model="username" readonly />
+        <!-- The student number is read-only -->
+      </div>
+
+      <div>
+        <!-- <h2 class="title" style="color: white;">Select Risk Level</h2> -->
+        <div class="risk-level-container">
+            <div class="risk-level">
+                <h3>High Interest Charge (25%)</h3>
+                <p>0 - 99</p>
+                
+            </div>
+            <div class="risk-level">
+                <h3>Medium Interest Charge (20%)</h3>
+                <p>100 - 199</p>
+                
+            </div>
+            <div class="risk-level">
+                <h3>Low Interest Charge (15%)</h3>
+                <p>200 - 300</p>
+            
+            </div>
+        </div>
+    </div>
+
+      <!-- Platform Buttons for fetching points -->
+      <div class="platform-buttons">
+        <button @click="fetchPoints('checkers60')">Checkers60 Points</button>
+        <button @click="fetchPoints('takealot')">Takealot Points</button>
+        <button @click="fetchPoints('uber')">Uber Points</button>
+        <button @click="fetchPoints('uberEats')">UberEats Points</button>
+        <button @click="fetchOverallPoints()">Overall Points</button>
+      </div>
+
+      <!-- Display Points -->
+      <div class="points-display" x-show="points !== null" style="color: white; text-align: center;">
+        <p x-show="selectedPlatform !== 'overall'">
+          Points for <span x-text="selectedPlatform"></span>:
+          <span x-text="points"></span>
+        </p>
+        <p x-show="selectedPlatform === 'overall'">
+          Overall Points: <span x-text="points"></span>
+        </p>
+      </div>
+
+      <!-- Back to Dashboard Button -->
+      <button @click="goBackToDashboard()" class="back-butn">
+        Back to Dashboard
+      </button>
+    </div>
+  </body>
+</html>

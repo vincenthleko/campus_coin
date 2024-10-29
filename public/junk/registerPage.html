@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Coin - Register</title>
+    <script defer src="alpineCampusCoin.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <link rel="icon" href="./favicon (1).ico" type="image/x-icon">
+</head>
+<body></body>
+    <div class="register-container" x-data="{ 
+        studentNumber: '', 
+        password: '', 
+        confirmPassword: '',
+        errorMessage: '',
+        register() {
+            if (this.password !== this.confirmPassword) {
+                alert('Passwords do not match!');
+                return;
+            }
+            // If passwords match, proceed to registration
+            window.location.href = 'index.html'; 
+        }
+    }">
+        <div class="register-box">
+            <h1>Register for Campus Coin</h1>
+            <form @submit.prevent="register">
+                <div class="input-group">
+                    <input type="text" placeholder="Enter your student number" required x-model="studentNumber">
+                </div>
+                <div class="input-group">
+                    <input type="password" placeholder="Enter your password" required x-model="password">
+                </div>
+                <div class="input-group">
+                    <input type="password" placeholder="Confirm your password" required x-model="confirmPassword">
+                </div>
+                <p x-text="errorMessage" class="error-message" style="color: red;"></p>
+                <div class="button-group">
+                    <button type="submit" class="register-btn">Register</button>
+                </div>
+            </form>
+            <a href="index.html" class="back-to-login">Back to Login</a>
+        </div>
+    </div>
+</body>
+</html>
+

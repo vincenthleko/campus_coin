@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Coin - Login</title>
+    <script defer src="alpineCampusCoin.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <link rel="icon" href="./favicon (1).ico" type="image/x-icon">
+</head>
+
+<body>
+    <div class="login-container" x-data="{ 
+        studentNumber: '',
+        password: '',
+        errorMessage: '',
+        allowedStudentNumbers: ['0001', '0002', '0003', '0004'],
+        facilitatorLogin: 'facilitator',  // Facilitator login identifier
+
+        signIn() {
+            if (this.allowedStudentNumbers.includes(this.studentNumber)) {
+                // Save the student number in local storage
+                localStorage.setItem('loggedInStudent', this.studentNumber);
+
+                // Redirect to the student dashboard
+                window.location.href = 'dashboard2.html';
+            } else if (this.studentNumber === this.facilitatorLogin) {
+                // Save facilitator login in local storage
+                localStorage.setItem('loggedInFacilitator', this.studentNumber);
+
+                // Redirect to the facilitator dashboard
+                window.location.href = 'admin.html';
+            } else {
+                // Show an alert for an invalid student number
+                alert('Invalid student number or facilitator login. Please try again.');
+            }
+        },
+
+        goToRegister() {
+            window.location.href = 'registerPage.html';
+        }
+    }">
+        <div class="login-box">
+            <h1>CAMPUS COIN</h1>
+            <img src="logo.png" alt="Campus Coin Logo" class="logo">
+
+            <!-- Login Form -->
+            <form @submit.prevent="signIn"> 
+                <div class="input-group">
+                    <input type="text" placeholder="Enter your username" x-model="studentNumber" required>
+                </div>
+                <div class="input-group">
+                    <input type="password" placeholder="Enter your password" x-model="password" required>
+                </div>
+                <div class="buttons-group">
+                    <button type="submit" class="sign-in-btn" style="width: 48%;">Sign In</button>
+                    <button type="button" class="register-btn" @click="goToRegister" style="width: 48%;">Register</button>
+                </div>
+                <a href="#" class="forgot-password">Forgot Password?</a>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
