@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lender</title>
+    <script src="https://cdn.jsdelivr.net/npm/web3/dist/web3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <script src="common.js" defer></script>
+    <script src="lender.js" defer></script>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div x-data="campusCoin" class="dashboard-container" x-cloak>
+        <div class="top-bar">
+            <div class="profile-pic">
+                <img src="profile-placeholder.png" alt="Profile Picture" />
+            </div>
+            <div class="user-id" x-text="studentNumber"></div>
+        </div>
+
+        <!-- Main form container -->
+        <div class="form-container">
+            <div id="current-account" class="walletconnected"></div>
+            <button id="connect" class="connect-btn">Connect Wallet</button>
+
+
+            <h2 class="loannss">Available Loans</h2>
+            <!-- Loans list container -->
+            <div id="loans-list" class="loans-list">
+                
+                <!-- Loan items will be populated here -->
+            </div>
+           
+
+
+            <input id="loan-id" class="dynamic-input" placeholder="Loan ID">
+            <button id="lend-to-loan" class="request-btn">Lend to Loan</button>
+        </div>
+
+        <!-- Footer -->
+        <div class="bottom-bar">
+            <p>2024 &middot; Campus Coin &middot; All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

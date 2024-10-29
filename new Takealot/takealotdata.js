@@ -1,4 +1,4 @@
-export var userData1 = {
+const userData1 = {
     transactions: [
         {
             transaction_id: "T014",
@@ -178,22 +178,22 @@ export var userData1 = {
             amount: 299.99,
             currency: "ZAR",
             items: [
-              {
-                item_id: "I001",
-                name: "Wireless Mouse",
-                quantity: 1,
-                price: 149.99
-              },
-              {
-                item_id: "I002",
-                name: "Bluetooth Keyboard",
-                quantity: 1,
-                price: 150.00
-              }
+                {
+                    item_id: "I001",
+                    name: "Wireless Mouse",
+                    quantity: 1,
+                    price: 149.99
+                },
+                {
+                    item_id: "I002",
+                    name: "Bluetooth Keyboard",
+                    quantity: 1,
+                    price: 150.00
+                }
             ],
             status: "Completed"
-          },
-          {
+        },
+        {
             transaction_id: "T002",
             username: "0003",
             user: "Richard Rent",
@@ -201,16 +201,16 @@ export var userData1 = {
             amount: 549.50,
             currency: "ZAR",
             items: [
-              {
-                item_id: "I003",
-                name: "4K Monitor",
-                quantity: 1,
-                price: 549.50
-              }
+                {
+                    item_id: "I003",
+                    name: "4K Monitor",
+                    quantity: 1,
+                    price: 549.50
+                }
             ],
             status: "Completed"
-          },
-          {
+        },
+        {
             transaction_id: "T003",
             username: "0003",
             user: "Richard Rent",
@@ -218,16 +218,16 @@ export var userData1 = {
             amount: 89.99,
             currency: "ZAR",
             items: [
-              {
-                item_id: "I004",
-                name: "USB Hub",
-                quantity: 1,
-                price: 89.99
-              }
+                {
+                    item_id: "I004",
+                    name: "USB Hub",
+                    quantity: 1,
+                    price: 89.99
+                }
             ],
             status: "Completed"
-          },
-          {
+        },
+        {
             transaction_id: "T004",
             username: "0003",
             user: "Richard Rent",
@@ -235,16 +235,16 @@ export var userData1 = {
             amount: 120.00,
             currency: "ZAR",
             items: [
-              {
-                item_id: "I005",
-                name: "Laptop Stand",
-                quantity: 1,
-                price: 120.00
-              }
+                {
+                    item_id: "I005",
+                    name: "Laptop Stand",
+                    quantity: 1,
+                    price: 120.00
+                }
             ],
             status: "Completed"
-          },
-          {
+        },
+        {
             transaction_id: "T011",
             username: "0004",
             user: "Stacy Scholar",
@@ -303,3 +303,5 @@ export var userData1 = {
         }
     ]
 };
+
+module.exports = { userData1 };

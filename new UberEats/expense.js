@@ -1,12 +1,13 @@
-import { userData3 } from "./uberEatsdata.js";
+const { userData3 } = require("./uberEatsdata.js");
 
-export function calculatePoints3(username) {
+function calculatePoints3(username) {
     let points = 0;
     userData3.transactions.forEach(transaction => {
         if (transaction.username === username) {
-
             points += 10;
         }
     });
     return points;
 }
+
+module.exports = {calculatePoints3};

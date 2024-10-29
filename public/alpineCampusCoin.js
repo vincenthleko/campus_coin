@@ -14,7 +14,7 @@ document.addEventListener("alpine:init", () => {
         async fetchPoints(platform) {
             console.log(`Fetching points for ${platform} and username ${this.username}`);
             this.selectedPlatform = platform;
-            const response = await fetch(`/api/${platform}/username/${this.username}`);
+            const response = await fetch(`http://localhost:3006/api/${platform}/username/${this.username}`);
             const data = await response.json();
             this.points = data.points;
         },
@@ -26,7 +26,7 @@ document.addEventListener("alpine:init", () => {
             let totalPoints = 0;
 
             for (let platform of platforms) {
-                const response = await fetch(`/api/${platform}/username/${this.username}`);
+                const response = await fetch(`http://localhost:3006/api/${platform}/username/${this.username}`);
                 const data = await response.json();
                 totalPoints += data.points;
             }
@@ -57,7 +57,7 @@ document.addEventListener("alpine:init", () => {
             const data = await response.json();
 
             if (data.success) {
-                window.location.href = 'dashboard2.html';  // Redirect to dashboard page
+                window.location.href = 'dashboard.html';  // Redirect to dashboard page
             } else {
                 this.errorMessage = data.message;
             }
@@ -101,7 +101,7 @@ document.addEventListener("alpine:init", () => {
         },
 
         goBackToDashboard() {
-            window.location.href = 'dashboard2.html';  // Use relative path to redirect to dashboard.html
+            window.location.href = 'dashboard.html';  // Use relative path to redirect to dashboard.html
         }
     }));
 });

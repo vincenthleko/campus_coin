@@ -1,4 +1,4 @@
-export var userData = {
+var userData = {
     transactions: [
         {
             transaction_id: "T023",
@@ -297,3 +297,6 @@ export var userData = {
         }
     ]
 };
+
+// Exporting the userData object using CommonJS
+module.exports = { userData };

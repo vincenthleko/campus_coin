@@ -1,12 +1,13 @@
-import { userData1 } from "./takealotdata.js";
+const { userData1 } = require("./takealotdata.js");
 
-export function calculatePoints1(username) {
+function calculatePoints1(username) {
     let points = 0;
     userData1.transactions.forEach(transaction => {
         if (transaction.username === username) {
-
             points += 10;
         }
     });
     return points;
 }
+
+module.exports = {calculatePoints1};
