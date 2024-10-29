@@ -1,3 +1,0 @@
-### Get Points for Completed Transactions
-GET http://localhost:3006/api/points
-Accept: application/json
