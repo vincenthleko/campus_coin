@@ -1,7 +1,7 @@
 let web3;
 let contractInstance;
 let currentAccount;
-let contractAddress = '0xe4874E08B2Ef5FE95e09c358DF6ae1AdB87FE016';
+let contractAddress = '0x3c26CEFEdE4a374aED8e91B4144B2CeaB7Ed3620';
 let contractAbi;
 
 async function init() {
