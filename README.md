@@ -73,7 +73,7 @@ npm test
 ### 👨‍💻 Contributors
 
 * **Vincent Hleko** – Backend & Frontend Integration, API mocking, Trust Score Calculator
-* **Grace ** – Backend & Frontend Integration, API mocking, Trust Score Calculator
+* **Grace** – Backend & Frontend Integration, API mocking, Trust Score Calculator
 * **Loyiso Xaba** - Backend, smart contract integration
 * **Mothusi Mulelekeng** – Frontend UI/UX designer
 
